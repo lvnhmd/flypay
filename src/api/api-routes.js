@@ -10,9 +10,6 @@ module.exports = function(app) {
 	});
 
 	
-
-
-	
 	app.get('/v1/menu/:locationId', function(req, res) {
 		
 		var locationId = req.params.locationId;
@@ -32,6 +29,132 @@ module.exports = function(app) {
 			  // storage: 'path/to/database.sqlite'
 			});
 
+
+
+// create 
+						  				// MenuPlus
+								  		// plu vat slot type businessId
+
+								  		// MenuPluIngredientsOrderTypes
+								  		// pluId ingredientId orderTypeId
+								  		
+								  		// MenuPluPrices
+								  		// menuPluId fp_BusinessLocationsId price validFrom validTo
+								  		
+								  		// MenuPluStocks
+								  		// menuPluId fp_BusinessLocationsId count updated
+
+var fbl = sequelize.define('fp_BusinessLocations', {
+		   i_Id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            unique: true,
+            autoIncrement: true
+        },
+
+		  i_BusinessId: {
+		    type: Sequelize.INTEGER
+		  }
+		},
+		{
+		    timestamps: false
+		});
+
+var MenuPluPrices = sequelize.define('MenuPluPrices', {
+		   id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            unique: true,
+            autoIncrement: true
+        },
+
+		  menuPluId: {
+		    type: Sequelize.INTEGER
+		  },
+		  fp_BusinessLocationsId: {
+		    type: Sequelize.INTEGER
+		  },
+		  price: {
+		    type: Sequelize.INTEGER
+		  }
+		},
+		{
+		    timestamps: false
+		});
+
+var MenuPluStocks = sequelize.define('MenuPluStocks', {
+		   id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            unique: true,
+            autoIncrement: true
+        },
+
+		  menuPluId: {
+		    type: Sequelize.INTEGER
+		  },
+		  fp_BusinessLocationsId: {
+		    type: Sequelize.INTEGER
+		  },
+		  count: {
+		    type: Sequelize.INTEGER
+		  }
+		},
+		{
+		    timestamps: false
+		});
+
+
+var MenuPlus = sequelize.define('MenuPlus', {
+		   id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            unique: true,
+            autoIncrement: true
+        },
+
+		  plu: {
+		    type: Sequelize.INTEGER
+		  },
+		  vat: {
+		    type: Sequelize.INTEGER
+		  },
+		  slot: {
+		    type: Sequelize.INTEGER
+		  },
+		  type: {
+		    type: Sequelize.STRING
+		  },
+		  businessId: {
+		    type: Sequelize.INTEGER
+		  }
+		},
+		{
+		    timestamps: false
+		});
+
+
+var MenuPluIngredientsOrderTypes = sequelize.define('MenuPluIngredientsOrderTypes', {
+		   id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            unique: true,
+            autoIncrement: true
+        },
+
+		  pluId: {
+		    type: Sequelize.INTEGER
+		  },
+		  ingredientId: {
+		    type: Sequelize.INTEGER
+		  },
+		  orderTypeId: {
+		    type: Sequelize.INTEGER
+		  }
+		},
+		{
+		    timestamps: false
+		});
 
 		var Menu = sequelize.define('Menus', {
 		   id: {
@@ -301,19 +424,89 @@ module.exports = function(app) {
 						  				
 									});
 
-								  		// look up business id from fp_BusinessLocations by fp_BusinessLocationsId
-						  				// create 
-						  				// MenuPlus
-								  		// plu vat slot type businessId
+								  			fbl.find({
+									        where: {
+									           i_Id: locationId
+									        }
+									     }).then(function(found_fbl) {
+									        
+									     	var bl = found_fbl.get({
+							    				plain: true
+							  				});
 
-								  		// MenuPluIngredientsOrderTypes
-								  		// pluId ingredientId orderTypeId
-								  		
-								  		// MenuPluPrices
-								  		// menuPluId fp_BusinessLocationsId price validFrom validTo
-								  		
-								  		// MenuPluStocks
-								  		// menuPluId fp_BusinessLocationsId count updated
+
+									     	// look up business id from fp_BusinessLocations by locationId
+						  				// create MenuPlus
+						  				// plu vat slot type businessId
+
+						  				
+
+						  				
+								  		MenuPlus.create({
+							    			plu : 11001,	
+								    		vat: 1,
+								    		slot: 1,
+								    		type: "add",
+								    		businessId: bl.i_BusinessId
+								  		}).then(function(new_mp) {
+
+									  		var mp = new_mp.get({
+							    				plain: true
+							  				});
+									  		
+									  		// MenuPluPrices
+									  		// menuPluId fp_BusinessLocationsId price validFrom validTo
+
+									  		MenuPluPrices.create({
+								    			menuPluId : mp.id,	
+									    		fp_BusinessLocationsId: locationId,
+									    		price: 3.75
+									  		}).then(function(new_mpp) {
+
+										  		var mpp = new_mpp.get({
+								    				plain: true
+								  				});
+
+										  		// MenuPluStocks
+								  				// menuPluId fp_BusinessLocationsId count updated
+										  		MenuPluStocks.create({
+								    			menuPluId : mp.id,	
+									    		fp_BusinessLocationsId: locationId,
+									    		count: 100
+										  		}).then(function(new_ms) {
+
+											  		var ms = new_ms.get({
+									    				plain: true
+									  				});
+
+											  		// MenuPluIngredientsOrderTypes
+									  				// pluId ingredientId orderTypeId
+									  				MenuPluIngredientsOrderTypes.create({
+										    			pluId : mp.id,
+										    			ingredientId:ming.id,	
+											    		orderTypeId: 1
+											    		
+												  		}).then(function(new_miot) {
+
+													  		var miot = new_miot.get({
+											    				plain: true
+											  				});
+
+													  		// MenuPluIngredientsOrderTypes
+											  				// pluId ingredientId orderTypeId
+
+										  				
+														});
+
+								  				
+												});
+
+							  				
+											});
+
+										});
+
+									     });
 
 						  				
 									});
@@ -323,8 +516,7 @@ module.exports = function(app) {
 
 
 
-		  				//create the portion ingredient
-
+		  				
 
 					});
 
