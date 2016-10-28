@@ -577,14 +577,18 @@ var MenuPluIngredientsOrderTypes = sequelize.define('MenuPluIngredientsOrderType
 });
 	
 
-	app.get('/v1/item/name/:name/description/:description/menuId/:menuId', function(req, res) {
+	app.get('/v1/item/:name/:description/:menuId/:locationId', function(req, res) {
 		
 		var name 	= req.params.name;
 		var description 	= req.params.description;
 		var menuId  = req.params.menuId;
+		var locationId  = req.params.locationId;
+
 		console.log(name);
 		console.log(description);
 		console.log(menuId);
+		console.log(locationId);
+
 
 		var sequelize = new Sequelize('flypay', 'flypay', 'hackathon', {
   			host: 'localhost',
@@ -1029,7 +1033,7 @@ var MenuPluIngredientsOrderTypes = sequelize.define('MenuPluIngredientsOrderType
 						  				
 						  				// create category menu relationship
 						  				MenuCategoryItems.create({
-							    			itemId : menuId,
+							    			itemId : mi.id,
 								    		categoryId: 2
 								  		}).then(function(new_mci) {
 
