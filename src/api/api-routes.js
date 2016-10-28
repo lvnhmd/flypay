@@ -1,13 +1,16 @@
 var Sequelize = require('sequelize');
 module.exports = function(app) {
 	
-	var mysql      = require('mysql');
-		var connection = mysql.createConnection({
-		  host     : 'localhost',
-		  user     : 'flypay',
-		  password : 'hackathon',
-		  database : 'flypay'
-		});
+	
+
+
+	app.get('/v1/health', function(req, res) {
+		
+		return res.sendStatus(200);
+	});
+
+	
+
 
 	
 	app.get('/v1/menu/:locationId', function(req, res) {
