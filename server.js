@@ -12,8 +12,8 @@ var port = process.env.PORT || 8081;
 // var session = require('express-session');
 
 // var config = require('./src/config.js');
-var Config = require('./src/config'),
-    config = new Config();
+// var Config = require('./src/config'),
+//     config = new Config();
 // var util = require('./src/util.js');
 // 
 
