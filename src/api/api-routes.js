@@ -1,8 +1,3 @@
-// var fs = require('fs');
-// var Competition = require('../models/competition');
-// var UserComp = require('../models/usercomp');
-// var SourceMeta = require('../models/sourcemeta');
-// var util = require('../util');
 var Sequelize = require('sequelize');
 module.exports = function(app) {
 	
@@ -14,10 +9,11 @@ module.exports = function(app) {
 		  database : 'flypay'
 		});
 
-	// show the home page (will also have our login links)
-	app.get('/v1/hello', function(req, res) {
+	
+	app.get('/v1/menu/:locationId', function(req, res) {
 		
-		var sequelize = new Sequelize('mysql://flypay:hackathon/flypay');
+		var locationId = req.params.locationId;
+		console.log(locationId)
 
 		var sequelize = new Sequelize('flypay', 'flypay', 'hackathon', {
   			host: 'localhost',
@@ -213,8 +209,8 @@ module.exports = function(app) {
 		var data;
 			
 		Menu.create({
-		    name: 'ElvinTest3',
-		    description: 'Test'
+		    name: 'Default',
+		    description: 'Default'
 		  })
 
 
@@ -229,7 +225,7 @@ module.exports = function(app) {
 
   			Mbl.create({
 		    menuId:menu.id,
-		    fp_BusinessLocationsId:5, 
+		    fp_BusinessLocationsId:locationId, 
 		    revision:0, 
 		    weight:0 , 
 		    orderType:1
@@ -302,7 +298,7 @@ module.exports = function(app) {
 						  				
 									});
 
-								  		// look up business id from fp_BusinessLocations
+								  		// look up business id from fp_BusinessLocations by fp_BusinessLocationsId
 						  				// create 
 						  				// MenuPlus
 								  		// plu vat slot type businessId
@@ -336,107 +332,11 @@ module.exports = function(app) {
 			return res.json(menu);
 
 
-  // 	data = menu.get({
-  //   plain: true
-  // });
-  // console.log(menu.get({
-  //   plain: true
-  // }));
+  
 
 	});
 });
-
-	// app.post('/api/track', function(req, res) {
-
-	// 	UserComp.findOne({
-	// 		'userid': req.body.userid,
-	// 		'compid': req.body.compid
-	// 	}, function(err, usercomp) {
-	// 		if (err) console.log(err);
-	// 		if (usercomp) {
-	// 			usercomp.count = usercomp.count + 1;
-	// 			usercomp.save(function(err) {
-	// 				if (err) console.log(err);
-	// 				return res.json(usercomp);
-	// 			});
-	// 		} else {
-	// 			var newUsercomp = new UserComp();
-	// 			newUsercomp.userid = req.body.userid;
-	// 			newUsercomp.compid = req.body.compid;
-
-	// 			newUsercomp.save(function(err) {
-	// 				if (err) console.log(err);
-	// 				return res.json(newUsercomp);
-	// 			});
-	// 		}
-	// 	});
-
-	// });
-
-
-	app.post('/v1/menu/:locationId', function(req, res) {
-		
-		// var mysql      = require('mysql');
-		// var connection = mysql.createConnection({
-		//   host     : 'localhost',
-		//   user     : 'flypay',
-		//   password : 'hackathon',
-		//   database : 'flypay'
-		// });
-
-		//insert a menu - just name
-		//get the menuId 
-		//insert a menubusinesslocation
-		//menuId,fp_BusinessLocationId(locationId), revision(0), weight(0) , orderType (1)
-		//in order for flypay location id to work, insert category and items 
-// 		{
-//   "name": "Weekday Menu",
-//   "categories": [
-//     {
-//       "name": "All",
-//       "description": "Default Menu",
-//       "items": [ 		MenuItems
-//         {
-          
-//           "name": "Default item",
-//           "description": "description",
-//           "portions": [ 	MenuPortions
-//             {
-//               "name": "Default portion",
-//               "ingredient": { 	MenuPortionIngredients
-//                 "id": 3005,
-//                 "name": "Default portion ingredient",
-//                 "addPrice": 5
-//               }
-//             }
-//           ]
-//         }
-//       ]
-//     }
-//   ]
-// }
-
-
-
-
-
-
-		connection.connect();
-
-		connection.query('INSERT INTO Menus ', function(err, rows, fields) {
-		  if (!err)
-		    console.log('The solution is: ', rows);
-		  else
-		    console.log('Error while performing Query.');
-		});
-
-		connection.end();
-
-		var data = {
-			myString:"hello"
-		};
-		return res.json(data);
-	});
+	
 
 	app.post('/v1/item', function(req, res) {
 		
