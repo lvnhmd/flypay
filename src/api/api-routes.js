@@ -60,6 +60,30 @@ var fbl = sequelize.define('fp_BusinessLocations', {
 		    timestamps: false
 		});
 
+
+
+var MenuCategoriesMenus = sequelize.define('MenuCategoriesMenus', {
+		   id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            unique: true,
+            autoIncrement: true
+        },
+
+		  menuId: {
+		    type: Sequelize.INTEGER
+		  },
+		  categoryId: {
+		    type: Sequelize.INTEGER
+		  },
+		  weight: {
+		    type: Sequelize.INTEGER
+		  }
+		},
+		{
+		    timestamps: false
+		});
+
 var MenuPluPrices = sequelize.define('MenuPluPrices', {
 		   id: {
             type: Sequelize.INTEGER,
@@ -342,12 +366,32 @@ var MenuPluIngredientsOrderTypes = sequelize.define('MenuPluIngredientsOrderType
 
 		.then(function(new_menu) {
   		
-
-			//create the mbl
-
 			var menu = new_menu.get({
     			plain: true
   			});
+
+
+												MenuCategoriesMenus.create({
+										    			menuId : menu.id,
+										    			categoryId:2,	
+											    		weight: 0
+											    		
+												  		}).then(function(new_mcm) {
+
+													  		var mcm = new_mcm.get({
+											    				plain: true
+											  				});
+
+													  		// MenuPluIngredientsOrderTypes
+											  				// pluId ingredientId orderTypeId
+
+										  				
+														});
+
+
+			//create the mbl
+
+			
 
   			Mbl.create({
 		    menuId:menu.id,
