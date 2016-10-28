@@ -14,7 +14,7 @@ var port = process.env.PORT || 8081;
 // var config = require('./src/config.js');
 var Config = require('./src/config'),
     config = new Config();
-var util = require('./src/util.js');
+// var util = require('./src/util.js');
 // 
 
 // must specify options hash even if no options provided!
@@ -44,7 +44,7 @@ process.chdir(__dirname);
 // app.set('views', __dirname + '/dist');
 
 // set view engine to php-express
-?app.engine('php', phpExpress.engine);
+// app.engine('php', phpExpress.engine);
 
 // routing all .php file to php-express
 // app.all(/.+\.php$/, phpExpress.router);
@@ -84,7 +84,7 @@ require('./src/api/api-routes.js')(app);
 // require('./src/api/admin-routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // start scrape.js task
-require('./src/cas/scrape').scrape(util.interval.oneHour);
+// require('./src/cas/scrape').scrape(util.interval.oneHour);
 
 // launch ======================================================================
 app.listen(port);

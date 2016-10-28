@@ -1,56 +1,28 @@
 {
-  "name": "clicktoenter",
+  "name": "flypay",
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/lvnhmd/ena.git"
+    "url": "https://github.com/lvnhmd/flypay.git"
   },
   "author": {
     "name": "Elvin Ali",
-    "email": "ali.elvin@gmail.com"
+    "email": "elvin.ali@monitisecreate.com"
   },
   "main": "server.js",
   "dependencies": {
     "async": "^1.5.2",
-    "bcrypt-nodejs": "latest",
     "body-parser": "~1.0.0",
-    "connect-flash": "~0.1.1",
-    "consolidate": "^0.14.0",
     "cookie-parser": "~1.0.0",
     "express": "latest",
     "express-session": "~1.0.0",
     "express-sessions": "^1.0.5",
-    "forever": "^0.15.2",
+    "install": "^0.8.2",
     "lodash": "^4.5.0",
-    "moment": "^2.13.0",
-    "mongoose": "~3.8.1",
-    "morgan": "~1.0.0",
-    "nodemailer": "^2.3.0",
-    "passport": "~0.1.17",
-    "passport-facebook": "~1.0.2",
-    "passport-google-oauth": "~0.1.5",
-    "passport-local": "~0.1.6",
-    "passport-twitter": "~1.0.2",
-    "php-express": "0.0.3",
-    "ractive": "^0.7.3",
-    "ractive-load": "^0.5.2",
-    "utf8": "^2.1.1",
-    "validator": "^5.1.0",
-    "x-ray": "^2.0.3"
-  },
-  "devDependencies": {
-    "browser-sync": "^2.12.3",
-    "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
-    "gulp-concat": "^2.6.0",
-    "gulp-inject": "^4.0.0",
-    "gulp-jshint": "^2.0.0",
-    "gulp-load-plugins": "^1.2.0",
-    "gulp-mongodb-data": "^1.0.2",
-    "gulp-nodemon": "^2.0.6",
-    "gulp-uglify": "^1.5.3",
-    "jshint": "^2.9.1",
-    "jshint-stylish": "^2.1.0",
-    "nodemon": "^1.9.1"
+    "mysql": "^2.11.1",
+    "mysql2": "^1.1.1",
+    "node-mysql": "^0.4.2",
+    "npm": "^3.10.9",
+    "sequelize": "^3.24.6"
   }
 }
